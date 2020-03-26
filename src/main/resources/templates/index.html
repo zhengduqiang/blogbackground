@@ -1,0 +1,445 @@
+﻿<html class="no-js" xmlns:fm="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>杜清轩博客</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/nprogress.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="../images/icon/icon.png">
+    <link rel="shortcut icon" href="../images/icon/favicon.ico">
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/nprogress.js"></script>
+    <script src="../js/jquery.lazyload.min.js"></script>
+</head>
+
+<body class="user-select" onload="showtime()">
+<header class="header">
+    <nav class="navbar navbar-default" id="navbar">
+        <div class="container">
+            <div class="header-topbar hidden-xs link-border">
+                <ul class="site-nav topmenu">
+                    <li><a th:href="@{/findLeaveAll}">关于杜清轩</a></li>
+                    <li><a th:href="@{/findArticledetailsGXRJ}" rel="nofollow">更新日记</a></li>
+                    <li><a th:href="@{/links}" rel="nofollow">友情链接</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false" rel="nofollow">关注本站 <span class="caret"></span></a>
+                        <ul class="dropdown-menu header-topbar-dropdown-menu">
+                            <li><a data-toggle="modal" data-target="#WeChat" rel="nofollow"><i class="fa fa-weixin"></i>
+                                微信</a></li>
+                            <li><a data-toggle="modal" href="#" data-target="#WeChat2" rel="nofollow"><i
+                                    class="fa fa-qq"></i> QQ</a></li>
+                            <li><a data-toggle="modal" data-tarlget="#areDeveloping" rel="nofollow"><i
+                                    class="fa fa-rss"></i> RSS</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a th:if="${session.user==null}" data-target="#loginModal"
+                   th:href="@{/login}"
+                   rel="nofollow">Hi,请登录</a>&nbsp;&nbsp;<a th:if="${session.user==null}"
+                                                           th:href="@{/register}" class="register"
+                                                           rel="nofollow">我要注册</a>
+
+                <a data-toggle="modal" data-target="#loginModal" class="login" th:href="@{/login}"
+                   th:if="${session.user!=null}"
+                   rel="nofollow">[[${session.user.userName}]]欢迎您,来到杜清轩博客</a>&nbsp;&nbsp;
+            </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <h1 class="logo hvr-bounce-in"><a href="" title=""><img src="images/logo2.png" alt="">杜清轩博客</a></h1>
+            </div>
+            <div class="collapse navbar-collapse" id="header-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden-index active"><a data-cont="杜清轩首页" th:href="@{/findArticledetailsAll}">杜清轩首页</a>
+                    </li>
+                    <li><a th:href="@{/findArticledetailsType?tId=1&type_id=1}">后端技术</a></li>
+                    <li><a th:href="@{/findArticledetailsType?tId=2&type_id=2}">前端技术</a></li>
+                    <li><a th:href="@{/findArticledetailsType?tId=3&type_id=3}">杂谈</a></li>
+                    <li><a th:href="@{/findArticledetailsType?tId=4&type_id=4}">程序人生</a></li>
+                </ul>
+                <form class="navbar-form visible-xs" th:action="@{/findArticledetailsAll}" th:method="post">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20"
+                               autocomplete="off">
+                        <span class="input-group-btn">
+                                <input class="btn btn-default btn-search" name="detailsTitle" type="submit" value="搜索"/>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <div class="jumbotron">
+                <h1>欢迎访问杜清轩博客</h1>
+                <p>在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</p>
+            </div>
+            <div id="focusslide" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <!--  <li data-target="#focusslide" data-slide-to="0" class="active"></li>
+                    <li data-target="#focusslide" data-slide-to="1"></li>
+                    <li data-target="#focusslide" data-slide-to="2"></li>-->
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <a href="" target="_blank"><img src="images/banner/banner_01.jpg" alt="" class="img-responsive"></a>
+                        <div class="carousel-caption"> 有志者,事竟成,多么美好啊！</div>
+                    </div>
+                    <div class="item">
+                        <a href="" target="_blank"><img src="images/banner/banner_02.jpg" alt="" class="img-responsive"></a>
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="item">
+                        <a href="" target="_blank"><img src="images/banner/banner_03.jpg" alt="" class="img-responsive"></a>
+                        <div class="carousel-caption">java之路，永不止步 </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+                        class="sr-only">上一个</span> </a> <a class="right carousel-control" href="#focusslide"
+                                                           role="button" data-slide="next" rel="nofollow"> <span
+                    class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
+                    class="sr-only">下一个</span> </a>
+            </div>
+            <article class="excerpt-minic excerpt-minic-index">
+                <h2><span class="red">【今日推荐】</span><a
+                        th:href="@{/findArticledetailsXQ(aId=${articledetailsTops.aId},labelContent=${articledetailsTops.labelContent})}"
+                        title="" th:text="${articledetailsTops.detailsTitle}"></a>
+                </h2>
+                <p class="note" th:text="${articledetailsTops.jianjie}"
+                   style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                    一次我下载几部电影，发现如果同时下载多部要等上几个小时，然后我把最想看的做个先后排序，去设置同时只能下载一部，结果是不到一杯茶功夫我就能看到最想看的电影。
+                    这就像我们一段时间内想干成很多事情，是同时干还是有选择有顺序的干，结果很不一样。同时...</p>
+            </article>
+            <div class="title">
+                <h3>最新发布</h3>
+                <div class="more">
+                    <a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${1})}">Java</a>
+                    <a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${4})}">SpringBoot</a>
+                    <a th:href="@{/findArticledetailsType(tId=${1},type_id=${2},label_id=${8})}">HTML/CSS</a>
+                    <a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${7})}">MySql</a>
+                    <a th:href="@{/findArticledetailsType(tId=${1},type_id=${3},label_id=${11})}">感悟</a>
+                    <a th:href="@{/findArticledetailsType(tId=${1},type_id=${4},label_id=${13})}">面试</a></div>
+            </div>
+            <article class="excerpt excerpt-5" th:each="artickledetailsDate:${artickledetailsDates}">
+                <a class="focus"
+                   th:href="@{/findArticledetailsXQ(aId=${artickledetailsDate.aId},labelContent=${artickledetailsDate.labelContent})}"
+                   title=""><img class="thumb" data-original="images/excerpt.jpg"
+                                 src="images/excerpt.jpg" alt=""></a>
+                <header>
+                    <a class="cat"
+                       th:href="@{/findArticledetailsXQ(aId=${artickledetailsDate.aId},labelContent=${artickledetailsDate.labelContent})}">[[${artickledetailsDate.afterType}]]<i></i></a>
+                    <h2>
+                        <a th:href="@{/findArticledetailsXQ(aId=${artickledetailsDate.aId},labelContent=${artickledetailsDate.labelContent})}"
+                           title=""
+                        >[[${artickledetailsDate.detailsTitle}]]</a></h2>
+                </header>
+                <p class="meta">
+                    <time class="time"><i class="glyphicon glyphicon-time"></i>
+                        [[${#dates.format(artickledetailsDate.releasedate,'yyyy-MM-dd HH:mm:ss')}]]
+                    </time>
+                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共[[${artickledetailsDate.watchNum}]]人围观</span>
+                    <a class="comment"
+                       th:href="@{/findArticledetailsXQ(aId=${artickledetailsDate.aId},labelContent=${artickledetailsDate.labelContent})}"><i
+                            class="glyphicon glyphicon-comment"></i> [[${artickledetailsDate.count}]]个不明物体</a>
+                </p>
+                <p class="note"
+                   style="overflow: hidden; text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;"
+                   th:utext="${artickledetailsDate.jianjie}">
+                </p>
+            </article>
+            <nav class="pagination" style="display: block;">
+                <ul>
+                    <li class="next-page"><a
+                            th:href="@{/findArticledetailsAll(pageNum=1,detailsTitle=${detailsTitle})}">首页</a></li>
+                    <li class="next-page" th:if="${pageInfo.pageNum!=1}"><a
+                            th:href="@{/findArticledetailsAll(pageNum=${pageInfo.pageNum-1},detailsTitle=${detailsTitle})}">上一页</a>
+                    </li>
+                    <li class="next-page" th:if="${pageInfo.pageNum==1}"><a
+                            th:href="@{/findArticledetailsAll(pageNum=${pageInfo.pageNum},detailsTitle=${detailsTitle})}">上一页</a>
+                    </li>
+                    <li class="next-page" th:if="${pageInfo.pageNum<pageInfo.pages}"><a
+                            th:href="@{/findArticledetailsAll(pageNum=${pageInfo.pageNum+1},detailsTitle=${detailsTitle})}">下一页</a>
+                    </li>
+                    <li class="next-page" th:if="${pageInfo.pageNum==pageInfo.pages}"><a
+                            th:href="@{/findArticledetailsAll(pageNum=${pageInfo.pageNum},detailsTitle=${detailsTitle})}">下一页</a>
+                    </li>
+                    <li class="next-page"><a
+                            th:href="@{/findArticledetailsAll(pageNum=${pageInfo.pages},detailsTitle=${detailsTitle})}">尾页</a>
+                    </li>
+                    <li><span>共 [[${pageInfo.pages}]] 页 正在第[[${pageInfo.pageNum}]]页</span><span></span></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <aside class="sidebar">
+        <div class="fixed">
+            <div class="widget widget_search">
+                <form class="navbar-form" th:action="@{/findArticledetailsAll}" method="post">
+                    <div class="input-group">
+                        <input type="text" name="detailsTitle" th:value="${detailsTitle}" class="form-control" size="35"
+                               placeholder="请输入关键字"
+                               maxlength="15" autocomplete="off">
+                        <span class="input-group-btn">
+                                <button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+                            </span>
+                    </div>
+                </form>
+            </div>
+            <div class="widget widget-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab"
+                                                              data-toggle="tab">文章类型</a></li>
+                    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">联系杜清轩</a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="height: 100px;">
+                    <div role="tabpanel" class="tab-pane notice active" id="notice">
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${1})}"
+                                       style="color: dodgerblue">Java</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${2})}"
+                                       style="color: deeppink">Spring</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${3})}"
+                                       style="color: darkorange">SpringMvc</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${4})}"
+                                       style="color: lightseagreen">SpringBoot</a>
+                        <br/><br/>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${5})}"
+                                       style="color: violet">SpringCloud</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${6})}"
+                                       style="color: #c7254e">Mybatis</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${7})}"
+                                       style="color: #4cae4c">MySql</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${1},label_id=${14})}"
+                                       style="color: #EF4639">开发工具</a><br/><br/>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${2},label_id=${8})}"
+                                       style="color: #ce8483">HTML/CSS</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${2},label_id=${9})}"
+                                       style="color: #000000">Vue</a>
+                        &nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${3},label_id=${11})}"
+                                 style="color: #ce8483">感悟</a>
+                        &nbsp;&nbsp;<a th:href="@{/findArticledetailsType(tId=${1},type_id=${4},label_id=${12})}"
+                                       style="color: #2b15ff">面试</a>
+                        <br/><br/>
+                    </div>
+                    <div role="tabpanel" class="tab-pane centre" id="centre">
+                        <h4>需要登录才能进入会员中心</h4>
+                        <p><a data-toggle="modal" data-target="#loginModal" class="btn btn-primary">立即登录</a> <a
+                                href="javascript:;" class="btn btn-default">现在注册</a></p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane contact" id="contact">
+                        <div class="r1-body">
+                            <div class="catch-me">
+                                <div style="font-size: 30px;margin-left: 62px;">
+                                    <a href="http://47.115.122.11:8080/aimeeResume-master/index.html" target="_blank"
+                                       class="el-tooltip item" style="">
+                                        <i class="fa fa-fw fa-file-word-o"></i>
+                                    </a>
+
+                                    <a href="qq.jpg" target="_blank" style="padding-left: 35px;"
+                                       class="el-tooltip item">
+                                        <i class="fa fa-fw fa-qq"></i>
+                                    </a>
+                                    <a href="wx.jpg" target="_blank" class="el-tooltip item"
+                                       style="padding-left: 35px;">
+                                        <i class="fa fa-fw fa-wechat"></i>
+                                    </a>
+
+                                </div>
+                                <br/>
+                                <div style="font-size: 30px;margin-left: 65px;">
+                                    <a href="https://github.com/zhengduqiang" target="_blank" class="el-tooltip item"
+                                       style="">
+                                        <i class="fa fa-fw fa-github"></i>
+                                    </a>
+                                    <a href="https://weibo.com/6853548404/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1"
+                                       style="padding-left:35px;" target="_blank"
+                                       class="el-tooltip item">
+                                        <i class="fa fa-fw fa-weibo"></i>
+                                    </a>
+                                    <a href="https://mp.csdn.net/console/home" target="_blank" class="el-tooltip item"
+                                       style="padding-left: 35px;">
+                                        <i>C</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget widget_sentence">
+            <h3>每日一句</h3>
+            <div class="widget-sentence-content">
+                <h4 id="show">2016年01月05日星期二</h4>
+                <p>
+                    [[${everydayAlls.everydayContent}]]<br/>
+                    [[${everydayAlls.everydayContent2}]]
+                </p>
+            </div>
+        </div>
+        <div>
+            <div class="widget widget_hot">
+                <h3>热门文章</h3>
+                <ul th:each="artickledetail:${artickledetails}">
+                    <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg"
+                                                                src="images/excerpt.jpg" alt=""></span><span
+                            class="text"
+                            style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"
+                            th:text="${artickledetail.detailsTitle}">php如何判断一个日期的格式是否正确</span><span class="muted"><i
+                            class="glyphicon glyphicon-time"></i> [[${#dates.format(artickledetail.releasedate,'yyyy-MM-dd')}]] </span><span
+                            class="muted"><i
+                            class="glyphicon glyphicon-eye-open"></i> [[ ${artickledetail.watchNum} ]]人围观</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </aside>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>杜清轩博客已萌萌哒运行30天(●'◡'●)ﾉ♥<br/>
+            <br/>托管于<a href="https://github.com/zhengduqiang">GitHub</a>. &nbsp; <a href="https://www.aliyun.com/?utm_content=se_1000301881" target="_blank" rel="nofollow">阿里云 </a>
+            提供静态文件云存储服务&nbsp; &nbsp;<br/>
+            <br/>
+        </p>
+        Made with <span style="color:#ff248a;">❤</span> by 杜清轩.
+    </div>
+    <div id="gotop"><a class="gotop"></a></div>
+</footer>
+<!--微信二维码模态框-->
+<div class="modal fade user-select" id="WeChat" tabindex="-1" role="dialog" aria-labelledby="WeChatModalLabel">
+    <div class="modal-dialog" role="document" style="margin-top:120px;max-width:280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="WeChatModalLabel" style="cursor:default;">微信扫一扫</h4>
+            </div>
+            <div class="modal-body" style="text-align:center"><img src="wx.jpg" alt="" width="250" height="250"
+                                                                   style="cursor:pointer"/></div>
+        </div>
+    </div>
+</div>
+<!--QQ二维码模态框-->
+<div class="modal fade user-select" id="WeChat2" tabindex="-1" role="dialog" aria-labelledby="WeChatModalLabel">
+    <div class="modal-dialog" role="document" style="margin-top:120px;max-width:280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="WeChatModalLabel" style="cursor:default;">QQ扫一扫</h4>
+            </div>
+            <div class="modal-body" style="text-align:center"><img src="qq.jpg" alt="" width="250" height="300"
+                                                                   style="cursor:pointer"/></div>
+        </div>
+    </div>
+</div>
+<!--该功能正在日以继夜的开发中-->
+<div class="modal fade user-select" id="areDeveloping" tabindex="-1" role="dialog"
+     aria-labelledby="areDevelopingModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="areDevelopingModalLabel" style="cursor:default;">该功能正在日以继夜的开发中…</h4>
+            </div>
+            <div class="modal-body">
+                <img src="images/baoman/baoman_01.gif" alt="深思熟虑"/>
+                <p style="padding:15px 15px 15px 100px; position:absolute; top:15px; cursor:default;">
+                    很抱歉，程序猿正在日以继夜的开发此功能，本程序将会在以后的版本中持续完善！</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">朕已阅</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--登录注册模态框-->
+<!--<div class="modal fade user-select" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/Admin/Index/login" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="loginModalLabel">登录</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="loginModalUserNmae">用户名</label>
+                        <input type="text" class="form-control" id="loginModalUserNmae" placeholder="请输入用户名" autofocus
+                               maxlength="15" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginModalUserPwd">密码</label>
+                        <input type="password" class="form-control" id="loginModalUserPwd" placeholder="请输入密码"
+                               maxlength="18" autocomplete="off" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>-->
+<!--右键菜单列表-->
+<div id="rightClickMenu">
+    <ul class="list-group rightClickMenuList">
+        <li class="list-group-item disabled">欢迎访问杜清轩博客</li>
+        <li class="list-group-item"><span>IP：</span>47.115.122.11</li>
+        <li class="list-group-item"><span>地址：</span>江西省抚州市</li>
+        <li class="list-group-item"><span>系统：</span>Windows10</li>
+        <li class="list-group-item"><span>浏览器：</span>Chrome47</li>
+    </ul>
+</div>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.ias.js"></script>
+<script src="../js/scripts.js"></script>
+<script type="text/javascript">
+    //获得当前时间,刻度为一千分一秒
+    var initializationTime = (new Date()).getTime();
+
+    function showLeftTime() {
+        var now = new Date();
+        var year = now.getYear();
+        var month = now.getMonth();
+        var day = now.getDate();
+        var weekday = now.get
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        document.all.show.innerHTML = "" + year + "年" + month + "月" + day + "日 " + hours + ":" + minutes + ":" + seconds + "";
+        //一秒刷新一次显示时间
+        var timeID = setTimeout(showLeftTime, 1000);
+    }
+
+    function showtime() {
+        var date = new Date();
+        this.year = date.getFullYear();
+        this.month = date.getMonth() + 1;
+        this.date = date.getDate();
+        this.day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")[date.getDay()];
+        this.hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+        this.minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        this.second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        var currentTime = +this.year + "年" + this.month + "月" + this.date + "日 " + this.hour + ":" + this.minute + ":" + this.second + " " + "(" + this.day + ")";
+        document.all.show.innerHTML = currentTime;
+        var timei = setTimeout(showtime, 1000);
+    }
+</script>
+</body>
+</html>

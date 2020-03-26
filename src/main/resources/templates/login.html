@@ -1,0 +1,54 @@
+﻿<html class="no-js" xmlns:fm="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="../static/css/reset.css"/>
+    <link rel="stylesheet" href="../static/css/common.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+</head>
+<body style="background-color: #efefef;">
+<div class="wrap login_wrap">
+    <div class="content">
+        <div class="logo"></div>
+        <div class="login_box">
+
+            <div class="login_form">
+                <div class="login_title">
+                    登录
+                </div>
+                <form th:action="@{/findUserLogin}" method="post">
+                    <div class="form_text_ipt">
+                        <input name="qqEmail" type="text" placeholder="QQ邮箱">
+                    </div>
+                    <div class="form_text_ipt">
+                        <input name="userPwd" type="password" placeholder="密码">
+                    </div>
+                    <div class="form_check_ipt">
+                        <div class="left check_left">
+                            <label th:text="${ts}">下次自动登录</label>
+                        </div>
+                        <div class="right check_right">
+                            <!--<a href="#">忘记密码</a>-->
+                        </div>
+                    </div>
+                    <div class="form_btn">
+                        <button type="submit" >登录</button>
+                    </div>
+                    <div class="form_reg_btn">
+                        <span>还没有帐号？</span><a th:href="@{/register}">马上注册</a>
+                    </div>
+                </form>
+                <div class="other_login">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
+</body>
+</html>

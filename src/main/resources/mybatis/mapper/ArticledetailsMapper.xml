@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blogbackground.mapper.ArticledetailsMapper">
+    <!--同步：每日一句-->
+    <select id="findEverydayAll" resultType="Everyday">
+        SELECT * FROM everyday LIMIT 0,1
+    </select>
+    <!--同步：查询热门文章-->
+    <select id="findArtickledetails" resultType="Articledetails">
+    SELECT  * FROM articledetails ORDER BY watchNum DESC LIMIT 0,5
+    </select>
+    <!--同步：按条件查询最新发布的文章-->
+    <select id="findArtickledetailsDate" resultType="Articledetails" parameterType="Articledetails">
+        SELECT * FROM articledetails a,`type` t ,label l WHERE a.type_id = t.tId AND a.label_id = l.lId
+        <if test="detailsTitle != null and detailsTitle != ''">
+            AND detailsTitle LIKE CONCAT ('%',#{detailsTitle},'%')
+        </if>
+        ORDER BY releasedate DESC
+    </select>
+    <!--同步：今日推荐文章-->
+    <select id="findArticledetailsTop" resultType="Articledetails">
+        SELECT  * FROM articledetails ORDER BY watchNum DESC LIMIT 0,1
+    </select>
+    <!--同步：按照文章分类查询-->
+    <select id="findWZFL" resultType="Articledetails" parameterType="Articledetails">
+        SELECT * FROM articledetails a,`type` t ,label l WHERE a.type_id = t.tId AND a.label_id = l.lId
+        <if test="detailsTitle != null and detailsTitle != ''">
+            AND detailsTitle LIKE CONCAT ('%',#{detailsTitle},'%')
+        </if>
+        <if test="type_id != null and type_id != ''">
+            AND a.type_id=#{type_id}
+        </if>
+        <if test="label_id != null and label_id != ''">
+            AND label_id= #{label_id}
+        </if>
+        ORDER BY releasedate DESC
+    </select>
+    <!--同步：按照文章类型查询标签-->
+    <select id="findTypeLabel" resultType="Label" parameterType="int">
+        SELECT * FROM `type` t,label l WHERE l.type_id = t.tId
+        <if test="tId != null and tId != ''">
+            AND t.tId=#{tId}
+        </if>
+        ORDER BY lId DESC
+    </select>
+    <!--同步：根据标签查询文章-->
+    <select id="findLaelWZ" resultType="Articledetails" parameterType="int">
+        SELECT * FROM articledetails a,label l WHERE a.label_id = l.lId
+        <if test="lId != '' and lId != null">
+            AND l.lId = #{lId}
+        </if>
+        ORDER BY releasedate DESC
+    </select>
+    <!--同步：查询更新日记-->
+    <select id="findArticledetailsGXRJ" resultType="Articledetails">
+        SELECT * FROM articledetails a,`type` t ,label l WHERE a.type_id = t.tId AND a.label_id = l.lId ORDER BY releasedate DESC
+    </select>
+
+    <!--同步：查询文章详情-->
+    <select id="findArticledetailsXQ" resultType="Articledetails" parameterType="int">
+        SELECT * FROM articledetails a,`type` t ,label l WHERE a.type_id = t.tId AND a.label_id = l.lId AND a.aId= #{aId}
+    </select>
+    <!--异步：当点击文章阅读数+1-->
+    <update id="updateArticledetailsWatchNum" parameterType="int">
+        UPDATE articledetails SET  `watchNum`=`watchNum`+1 WHERE aId=#{aId}
+    </update>
+    <!--同步：相关推荐-->
+    <select id="findArticledetailsXGTJ" resultType="Articledetails" parameterType="Articledetails">
+        SELECT * FROM articledetails a ,label l WHERE a.label_id=l.lId
+        AND l.labelContent LIKE   CONCAT ('%',#{labelContent},'%') ORDER BY `count` LIMIT 0,5
+    </select>
+
+    <!--同步：查询文章评论-->
+    <select id="findCommentAll" resultType="Comment" parameterType="int">
+        SELECT * FROM `comment` WHERE articledetailsId=#{articledetailsId} ORDER BY board_time DESC
+    </select>
+    <!--异步：给文章评论-->
+    <insert id="addComment" parameterType="Comment">
+        INSERT INTO `comment` (board_titm,board_name,board_time,userName_Id,articledetailsId)
+        VALUES(#{board_titm},#{board_name},#{board_time},#{userName_Id},#{articledetailsId});
+    </insert>
+    <!--异步：给文章评论之后修改文章的评论数+1-->
+    <update id="updateArticledetailsCount" parameterType="int">
+        UPDATE articledetails SET  `count`=`count`+1 WHERE aId=#{aId}
+    </update>
+    <!--同步：查询所有留言-->
+    <select id="findLeaveAll" resultType="Leave">
+        SELECT * FROM `leave` ORDER BY leave_Date DESC
+    </select>
+    <!--异步：增加留言-->
+    <insert id="addLeave" parameterType="Leave">
+        INSERT INTO `leave` (leave_name,leave_content,leave_Date,user_Id)
+        VALUES(#{leave_name},#{leave_content},#{leave_Date},#{user_Id});
+    </insert>
+
+</mapper>
